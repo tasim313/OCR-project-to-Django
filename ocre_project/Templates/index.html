@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCre Upload Process</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #444;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+
+        .checkbox-list {
+            margin-top: 10px;
+        }
+
+        .checkbox-list label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .checkbox-list input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .upload-form {
+            margin-bottom: 20px;
+        }
+
+        .upload-form input[type="file"] {
+            margin-top: 10px;
+        }
+
+        .extracted-text {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .download-buttons {
+            margin-top: 20px;
+        }
+
+        .download-buttons form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OCre Upload Process</h1>
+
+        <h2>Upload</h2>
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+            <label for="file">Choose a file:</label>
+            <input type="file" name="file" id="file" required>
+            <button type="submit" class="button">Upload</button>
+        </form>
+
+        {% if extracted_text %}
+        <div class="extracted-text">
+            <h2>Extracted Text:</h2>
+            <pre>{{ extracted_text }}</pre>
+        </div>
+
+        <div class="download-buttons">
+            <form action="/download/csv" method="POST">
+                <input type="hidden" name="extracted_text" value="{{ extracted_text }}">
+                <button type="submit" class="button">Download as CSV</button>
+            </form>
+            <form action="/download/xlsx" method="POST">
+                <input type="hidden" name="extracted_text" value="{{ extracted_text }}">
+                <button type="submit" class="button">Download as XLSX</button>
+            </form>
+            <form action="/download/ods" method="POST">
+                <input type="hidden" name="extracted_text" value="{{ extracted_text }}">
+                <button type="submit" class="button">Download as ODS</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <h2>Upload</h2>
+        <div class="checkbox-list">
+            <label><input type="checkbox"> Ostralef:obra</label>
+            <label><input type="checkbox" checked> <strong>CSV</strong><br>Download Formsat:</label>
+            <label><input type="checkbox"> Extracted data<br>XLSX ODR</label>
+            <label><input type="checkbox"> Pom</label>
+            <label><input type="checkbox" checked> <strong>Download</strong></label>
+        </div>
+    </div>
+</body>
+</html>
